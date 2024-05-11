@@ -6,7 +6,7 @@ type Props = {
   addToCart: () => void;
 };
 
-const MenuItems = ({ menuItem, addToCart }: Props) => {
+const MenuItem = ({ menuItem, addToCart }: Props) => {
   return (
     <Card className="cursor-pointer" onClick={addToCart}>
       <CardHeader>
@@ -19,4 +19,4 @@ const MenuItems = ({ menuItem, addToCart }: Props) => {
   );
 };
 
-export default MenuItems;
+export default MenuItem;
