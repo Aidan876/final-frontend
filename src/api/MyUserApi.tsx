@@ -78,7 +78,6 @@ export const useCreateMyUser = () => {
   };
 };
 
-//no email as email is only displayed to show which email is attached to account.
 type UpdateMyUserRequest = {
   name: string;
   addressLine1: string;
@@ -89,7 +88,6 @@ type UpdateMyUserRequest = {
 export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  //API for updating user information.
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
     const accessToken = await getAccessTokenSilently();
 
@@ -117,9 +115,8 @@ export const useUpdateMyUser = () => {
     reset,
   } = useMutation(updateMyUserRequest);
 
-  // Handles success and errors within the hook.
   if (isSuccess) {
-    toast.success("User Profile Updated!");
+    toast.success("User profile updated!");
   }
 
   if (error) {
