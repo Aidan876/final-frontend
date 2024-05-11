@@ -1,5 +1,5 @@
 export type User = {
-  //convert values from backend to string
+  //convert values to string from backend.
   _id: string;
   email: string;
   name: string;
@@ -18,8 +18,8 @@ export type Restaurant = {
   _id: string;
   user: string;
   restaurantName: string;
-  city: String;
-  country: String;
+  city: string;
+  country: string;
   deliveryPrice: number;
   estimatedDeliveryTime: number;
   cuisines: string[];

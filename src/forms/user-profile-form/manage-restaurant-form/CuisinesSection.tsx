@@ -4,7 +4,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { cuisineList } from "@/config/restaurant-options-congif";
+import { cuisineList } from "@/config/restaurant-options-config";
 import { useFormContext } from "react-hook-form";
 import CuisineCheckbox from "./CuisineCheckbox";
 
@@ -16,7 +16,7 @@ const CuisinesSection = () => {
       <div>
         <h2 className="text-2xl font-bold">Cuisines</h2>
         <FormDescription>
-          Select the cuisines that your restaurant server
+          Select the cuisines that your restaurant serves
         </FormDescription>
       </div>
       <FormField

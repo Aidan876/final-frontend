@@ -26,7 +26,6 @@ const ImageSection = () => {
 
       <div className="flex flex-col gap-8 md:w-[50%]">
         {existingImageUrl && (
-          // Creates widescreen image at 16:9 aspect ratio.
           <AspectRatio ratio={16 / 9}>
             <img
               src={existingImageUrl}
