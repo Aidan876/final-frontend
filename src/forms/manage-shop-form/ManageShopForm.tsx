@@ -72,7 +72,7 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
       return;
     }
 
-    // price lowest domination of 100 = 100pence == 1GBP
+    // price lowest value of 100 = 100cents == 1euro
     const deliveryPriceFormatted = parseInt(
       (shop.deliveryPrice / 100).toFixed(2)
     );
@@ -124,9 +124,10 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
     onSave(formData);
   };
 
+  //Add QR code functionality
   useEffect(() => {
     if (shop && shop._id) {
-      const qrCodeBaseURL = "http://localhost:5173/detail/"; // Replace with your base URL
+      const qrCodeBaseURL = "https://final-frontend-j5hr.onrender.com/detail/";
       const qrCodeURLWithId = qrCodeBaseURL + shop._id;
       setQrCodeUrl(qrCodeURLWithId);
     }
@@ -149,8 +150,7 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
 
         <div>
           <span className="md:block">
-            QR code will generate here! this will link to order page for users!
-            attach to clothing tag!
+            QR code will generate here after submit just reload page!
           </span>
           {qrCodeUrl && <QRCode value={qrCodeUrl} />}
         </div>
