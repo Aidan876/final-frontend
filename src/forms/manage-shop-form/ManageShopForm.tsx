@@ -124,7 +124,7 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
     onSave(formData);
   };
 
-  //Add QR code functionality
+  //QR code renders a basic "https:./detail/" and uses the _id variable after the / to generate the qr code automatically as the _id is used to generate the order pages
   useEffect(() => {
     if (shop && shop._id) {
       const qrCodeBaseURL = "https://final-frontend-j5hr.onrender.com/detail/";

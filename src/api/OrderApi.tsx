@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+//fetch shop orders from api
 export const useGetMyOrders = () => {
   const { getAccessTokenSilently } = useAuth0();
 
@@ -34,7 +35,7 @@ export const useGetMyOrders = () => {
 
   return { orders, isLoading };
 };
-
+//Request for checkout using the provided values
 type CheckoutSessionRequest = {
   cartItems: {
     menuItemId: string;
@@ -50,6 +51,7 @@ type CheckoutSessionRequest = {
   shopId: string;
 };
 
+// creates checkout session
 export const useCreateCheckoutSession = () => {
   const { getAccessTokenSilently } = useAuth0();
 
