@@ -1,17 +1,17 @@
-import { Order, Restaurant } from "@/types";
+import { Order, Shop } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const useGetMyRestaurant = () => {
+export const useGetMyShop = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const getMyRestaurantRequest = async (): Promise<Restaurant> => {
+  const getMyShopRequest = async (): Promise<Shop> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/shop`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -19,108 +19,101 @@ export const useGetMyRestaurant = () => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to get restaurant");
+      throw new Error("Failed to get shop");
     }
     return response.json();
   };
 
-  const { data: restaurant, isLoading } = useQuery(
-    "fetchMyRestaurant",
-    getMyRestaurantRequest
-  );
+  const { data: shop, isLoading } = useQuery("fetchMyShop", getMyShopRequest);
 
-  return { restaurant, isLoading };
+  return { shop, isLoading };
 };
 
-export const useCreateMyRestaurant = () => {
+export const useCreateMyShop = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const createMyRestaurantRequest = async (
-    restaurantFormData: FormData
-  ): Promise<Restaurant> => {
+  const createMyShopRequest = async (shopFormData: FormData): Promise<Shop> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/shop`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      body: restaurantFormData,
+      body: shopFormData,
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create restaurant");
+      throw new Error("Failed to create shop");
     }
 
     return response.json();
   };
 
   const {
-    mutate: createRestaurant,
+    mutate: createShop,
     isLoading,
     isSuccess,
     error,
-  } = useMutation(createMyRestaurantRequest);
+  } = useMutation(createMyShopRequest);
 
   if (isSuccess) {
-    toast.success("Restaurant created!");
+    toast.success("Shop created!");
   }
 
   if (error) {
-    toast.error("Unable to update restaurant");
+    toast.error("Unable to update shop");
   }
 
-  return { createRestaurant, isLoading };
+  return { createShop, isLoading };
 };
 
-export const useUpdateMyRestaurant = () => {
+export const useUpdateMyShop = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const updateRestaurantRequest = async (
-    restaurantFormData: FormData
-  ): Promise<Restaurant> => {
+  const updateShopRequest = async (shopFormData: FormData): Promise<Shop> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/shop`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      body: restaurantFormData,
+      body: shopFormData,
     });
 
     if (!response) {
-      throw new Error("Failed to update restaurant");
+      throw new Error("Failed to update shop");
     }
 
     return response.json();
   };
 
   const {
-    mutate: updateRestaurant,
+    mutate: updateShop,
     isLoading,
     error,
     isSuccess,
-  } = useMutation(updateRestaurantRequest);
+  } = useMutation(updateShopRequest);
 
   if (isSuccess) {
-    toast.success("Restaurant Updated");
+    toast.success("Shop Updated");
   }
 
   if (error) {
-    toast.error("Unable to update restaurant");
+    toast.error("Unable to update shop");
   }
 
-  return { updateRestaurant, isLoading };
+  return { updateShop, isLoading };
 };
 
-export const useGetMyRestaurantOrders = () => {
+export const useGetMyShopOrders = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const getMyRestaurantOrdersRequest = async (): Promise<Order[]> => {
+  const getMyShopOrdersRequest = async (): Promise<Order[]> => {
     const accessToken = await getAccessTokenSilently();
 
-    const response = await fetch(`${API_BASE_URL}/api/my/restaurant/order`, {
+    const response = await fetch(`${API_BASE_URL}/api/my/shop/order`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
@@ -135,8 +128,8 @@ export const useGetMyRestaurantOrders = () => {
   };
 
   const { data: orders, isLoading } = useQuery(
-    "fetchMyRestaurantOrders",
-    getMyRestaurantOrdersRequest
+    "fetchMyShopOrders",
+    getMyShopOrdersRequest
   );
 
   return { orders, isLoading };
@@ -147,16 +140,16 @@ type UpdateOrderStatusRequest = {
   status: string;
 };
 
-export const useUpdateMyRestaurantOrder = () => {
+export const useUpdateMyShopOrder = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const updateMyRestaurantOrder = async (
+  const updateMyShopOrder = async (
     updateStatusOrderRequest: UpdateOrderStatusRequest
   ) => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(
-      `${API_BASE_URL}/api/my/restaurant/order/${updateStatusOrderRequest.orderId}/status`,
+      `${API_BASE_URL}/api/my/shop/order/${updateStatusOrderRequest.orderId}/status`,
       {
         method: "PATCH",
         headers: {
@@ -175,12 +168,12 @@ export const useUpdateMyRestaurantOrder = () => {
   };
 
   const {
-    mutateAsync: updateRestaurantStatus,
+    mutateAsync: updateShopStatus,
     isLoading,
     isError,
     isSuccess,
     reset,
-  } = useMutation(updateMyRestaurantOrder);
+  } = useMutation(updateMyShopOrder);
 
   if (isSuccess) {
     toast.success("Order updated");
@@ -191,5 +184,5 @@ export const useUpdateMyRestaurantOrder = () => {
     reset();
   }
 
-  return { updateRestaurantStatus, isLoading };
+  return { updateShopStatus, isLoading };
 };

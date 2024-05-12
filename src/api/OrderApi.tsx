@@ -47,7 +47,7 @@ type CheckoutSessionRequest = {
     addressLine1: string;
     city: string;
   };
-  restaurantId: string;
+  shopId: string;
 };
 
 export const useCreateCheckoutSession = () => {

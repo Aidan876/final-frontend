@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { ORDER_STATUS } from "@/config/order-status-config";
-import { useUpdateMyRestaurantOrder } from "@/api/MyRestaurantApi";
+import { useUpdateMyShopOrder } from "@/api/MyShopApi";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const OrderItemCard = ({ order }: Props) => {
-  const { updateRestaurantStatus, isLoading } = useUpdateMyRestaurantOrder();
+  const { updateShopStatus, isLoading } = useUpdateMyShopOrder();
   const [status, setStatus] = useState<OrderStatus>(order.status);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const OrderItemCard = ({ order }: Props) => {
   }, [order.status]);
 
   const handleStatusChange = async (newStatus: OrderStatus) => {
-    await updateRestaurantStatus({
+    await updateShopStatus({
       orderId: order._id as string,
       status: newStatus,
     });
@@ -68,7 +68,7 @@ const OrderItemCard = ({ order }: Props) => {
           <div>
             Total Cost:
             <span className="ml-2 font-normal">
-              £{(order.totalAmount / 100).toFixed(2)}
+              €{(order.totalAmount / 100).toFixed(2)}
             </span>
           </div>
         </CardTitle>

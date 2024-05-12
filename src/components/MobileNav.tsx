@@ -17,17 +17,17 @@ const MobileNav = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Menu className="text-orange-500" />
+        <Menu className="text-blue-500" />
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
           {isAuthenticated ? (
             <span className="flex items-center font-bold gap-2">
-              <CircleUserRound className="text-orange-500" />
+              <CircleUserRound className="text-blue-500" />
               {user?.email}
             </span>
           ) : (
-            <span> Welcome to MernEats.com!</span>
+            <span> Welcome to my Clothing shop!</span>
           )}
         </SheetTitle>
         <Separator />
@@ -37,7 +37,7 @@ const MobileNav = () => {
           ) : (
             <Button
               onClick={() => loginWithRedirect()}
-              className="flex-1 font-bold bg-orange-500"
+              className="flex-1 font-bold bg-blue-500"
             >
               Log In
             </Button>

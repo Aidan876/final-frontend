@@ -23,7 +23,7 @@ const OrderStatusPage = () => {
             <OrderStatusDetail order={order} />
             <AspectRatio ratio={16 / 5}>
               <img
-                src={order.restaurant.imageUrl}
+                src={order.shop.imageUrl}
                 className="rounded-md object-cover h-full w-full"
               />
             </AspectRatio>

@@ -3,31 +3,31 @@ import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 type Props = {
-  cuisine: string;
-  field: ControllerRenderProps<FieldValues, "cuisines">;
+  filters: string;
+  field: ControllerRenderProps<FieldValues, "filters">;
 };
 
-const CuisineCheckbox = ({ cuisine, field }: Props) => {
+const FilterCheckbox = ({ filters, field }: Props) => {
   return (
     <FormItem className="flex flex-row items-center space-x-1 space-y-0 mt-2">
       <FormControl>
         <Checkbox
           className="bg-white"
-          checked={field.value.includes(cuisine)}
+          checked={field.value.includes(filters)}
           onCheckedChange={(checked) => {
             if (checked) {
-              field.onChange([...field.value, cuisine]);
+              field.onChange([...field.value, filters]);
             } else {
               field.onChange(
-                field.value.filter((value: string) => value !== cuisine)
+                field.value.filter((value: string) => value !== filters)
               );
             }
           }}
         />
       </FormControl>
-      <FormLabel className="text-sm font-normal">{cuisine}</FormLabel>
+      <FormLabel className="text-sm font-normal">{filters}</FormLabel>
     </FormItem>
   );
 };
 
-export default CuisineCheckbox;
+export default FilterCheckbox;

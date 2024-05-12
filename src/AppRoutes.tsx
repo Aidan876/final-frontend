@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import ManageRestaurantPage from "./pages/ManageRestaurantPage";
+import ManageShopPage from "./pages/ManageShopPage";
 import SearchPage from "./pages/SearchPage";
 import DetailPage from "./pages/DetailPage";
 import OrderStatusPage from "./pages/OrderStatusPage";
@@ -30,7 +30,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/detail/:restaurantId"
+        path="/detail/:shopId"
         element={
           <Layout showHero={false}>
             <DetailPage />
@@ -55,10 +55,10 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/manage-restaurant"
+          path="/manage-shop"
           element={
             <Layout>
-              <ManageRestaurantPage />
+              <ManageShopPage />
             </Layout>
           }
         />

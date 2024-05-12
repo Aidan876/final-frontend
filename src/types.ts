@@ -13,15 +13,15 @@ export type MenuItem = {
   price: number;
 };
 
-export type Restaurant = {
+export type Shop = {
   _id: string;
   user: string;
-  restaurantName: string;
+  shopName: string;
   city: string;
   country: string;
   deliveryPrice: number;
   estimatedDeliveryTime: number;
-  cuisines: string[];
+  filters: string[];
   menuItems: MenuItem[];
   imageUrl: string;
   lastUpdated: string;
@@ -36,7 +36,7 @@ export type OrderStatus =
 
 export type Order = {
   _id: string;
-  restaurant: Restaurant;
+  shop: Shop;
   user: User;
   cartItems: {
     menuItemId: string;
@@ -52,11 +52,11 @@ export type Order = {
   totalAmount: number;
   status: OrderStatus;
   createdAt: string;
-  restaurantId: string;
+  shopId: string;
 };
 
-export type RestaurantSearchResponse = {
-  data: Restaurant[];
+export type ShopSearchResponse = {
+  data: Shop[];
   pagination: {
     total: number;
     page: number;

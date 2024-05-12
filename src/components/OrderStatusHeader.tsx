@@ -10,9 +10,7 @@ const OrderStatusHeader = ({ order }: Props) => {
   const getExpectedDelivery = () => {
     const created = new Date(order.createdAt);
 
-    created.setMinutes(
-      created.getMinutes() + order.restaurant.estimatedDeliveryTime
-    );
+    created.setMinutes(created.getMinutes() + order.shop.estimatedDeliveryTime);
 
     const hours = created.getHours();
     const minutes = created.getMinutes();

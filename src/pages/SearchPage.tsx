@@ -1,5 +1,5 @@
-import { useSearchRestaurants } from "@/api/RestaurantApi";
-import CuisineFilter from "@/components/CuisineFilter";
+import { useSearchShops } from "@/api/ShopApi";
+import ListFilter from "@/components/ListFilter";
 import PaginationSelector from "@/components/PaginationSelector";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import SearchResultCard from "@/components/SearchResultCard";
@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 export type SearchState = {
   searchQuery: string;
   page: number;
-  selectedCuisines: string[];
+  selectedFilters: string[];
   sortOption: string;
 };
 
@@ -20,13 +20,13 @@ const SearchPage = () => {
   const [searchState, setSearchState] = useState<SearchState>({
     searchQuery: "",
     page: 1,
-    selectedCuisines: [],
+    selectedFilters: [],
     sortOption: "bestMatch",
   });
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const { results, isLoading } = useSearchRestaurants(searchState, city);
+  const { results, isLoading } = useSearchShops(searchState, city);
 
   const setSortOption = (sortOption: string) => {
     setSearchState((prevState) => ({
@@ -36,10 +36,10 @@ const SearchPage = () => {
     }));
   };
 
-  const setSelectedCuisines = (selectedCuisines: string[]) => {
+  const setSelectedFilters = (selectedFilters: string[]) => {
     setSearchState((prevState) => ({
       ...prevState,
-      selectedCuisines,
+      selectedFilters,
       page: 1,
     }));
   };
@@ -77,10 +77,10 @@ const SearchPage = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-      <div id="cuisines-list">
-        <CuisineFilter
-          selectedCuisines={searchState.selectedCuisines}
-          onChange={setSelectedCuisines}
+      <div id="filters-list">
+        <ListFilter
+          selectedFilters={searchState.selectedFilters}
+          onChange={setSelectedFilters}
           isExpanded={isExpanded}
           onExpandedClick={() =>
             setIsExpanded((prevIsExpanded) => !prevIsExpanded)
@@ -91,7 +91,7 @@ const SearchPage = () => {
         <SearchBar
           searchQuery={searchState.searchQuery}
           onSubmit={setSearchQuery}
-          placeHolder="Search by Cuisine or Restaurant Name"
+          placeHolder="Search by Shop Name"
           onReset={resetSearch}
         />
         <div className="flex justify-between flex-col gap-3 lg:flex-row">
@@ -102,8 +102,8 @@ const SearchPage = () => {
           />
         </div>
 
-        {results.data.map((restaurant) => (
-          <SearchResultCard restaurant={restaurant} />
+        {results.data.map((shop) => (
+          <SearchResultCard shop={shop} />
         ))}
         <PaginationSelector
           page={results.pagination.page}

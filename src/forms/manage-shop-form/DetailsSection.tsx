@@ -15,13 +15,11 @@ const DetailsSection = () => {
     <div className="space-y-2">
       <div>
         <h2 className="text-2xl font-bold">Details</h2>
-        <FormDescription>
-          Enter the details about your restaurant
-        </FormDescription>
+        <FormDescription>Enter the details about your shop</FormDescription>
       </div>
       <FormField
         control={control}
-        name="restaurantName"
+        name="shopName"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Name</FormLabel>
@@ -66,7 +64,7 @@ const DetailsSection = () => {
         name="deliveryPrice"
         render={({ field }) => (
           <FormItem className="max-w-[25%]">
-            <FormLabel>Delivery price (£)</FormLabel>
+            <FormLabel>Delivery price (€)</FormLabel>
             <FormControl>
               <Input {...field} className="bg-white" placeholder="1.50" />
             </FormControl>
@@ -79,9 +77,9 @@ const DetailsSection = () => {
         name="estimatedDeliveryTime"
         render={({ field }) => (
           <FormItem className="max-w-[25%]">
-            <FormLabel>Estimated Delivery Time (minutes)</FormLabel>
+            <FormLabel>Estimated Delivery Time (Minutes)</FormLabel>
             <FormControl>
-              <Input {...field} className="bg-white" placeholder="30" />
+              <Input {...field} className="bg-white" placeholder="120" />
             </FormControl>
             <FormMessage />
           </FormItem>

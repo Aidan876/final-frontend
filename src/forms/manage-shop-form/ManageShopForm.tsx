@@ -4,17 +4,17 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DetailsSection from "./DetailsSection";
 import { Separator } from "@/components/ui/separator";
-import CuisinesSection from "./CuisinesSection";
+import FiltersSection from "./FiltersSection";
 import MenuSection from "./MenuSection";
 import ImageSection from "./ImageSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
-import { Restaurant } from "@/types";
+import { Shop } from "@/types";
 import { useEffect } from "react";
 
 const formSchema = z
   .object({
-    restaurantName: z.string({
+    shopName: z.string({
       required_error: "restuarant name is required",
     }),
     city: z.string({
@@ -31,7 +31,7 @@ const formSchema = z
       required_error: "estimated delivery time is required",
       invalid_type_error: "must be a valid number",
     }),
-    cuisines: z.array(z.string()).nonempty({
+    filters: z.array(z.string()).nonempty({
       message: "please select at least one item",
     }),
     menuItems: z.array(
@@ -48,51 +48,51 @@ const formSchema = z
     path: ["imageFile"],
   });
 
-type RestaurantFormData = z.infer<typeof formSchema>;
+type ShopFormData = z.infer<typeof formSchema>;
 
 type Props = {
-  restaurant?: Restaurant;
-  onSave: (restaurantFormData: FormData) => void;
+  shop?: Shop;
+  onSave: (shopFormData: FormData) => void;
   isLoading: boolean;
 };
 
-const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
-  const form = useForm<RestaurantFormData>({
+const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
+  const form = useForm<ShopFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      cuisines: [],
+      filters: [],
       menuItems: [{ name: "", price: 0 }],
     },
   });
 
   useEffect(() => {
-    if (!restaurant) {
+    if (!shop) {
       return;
     }
 
     // price lowest domination of 100 = 100pence == 1GBP
     const deliveryPriceFormatted = parseInt(
-      (restaurant.deliveryPrice / 100).toFixed(2)
+      (shop.deliveryPrice / 100).toFixed(2)
     );
 
-    const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+    const menuItemsFormatted = shop.menuItems.map((item) => ({
       ...item,
       price: parseInt((item.price / 100).toFixed(2)),
     }));
 
-    const updatedRestaurant = {
-      ...restaurant,
+    const updatedShop = {
+      ...shop,
       deliveryPrice: deliveryPriceFormatted,
       menuItems: menuItemsFormatted,
     };
 
-    form.reset(updatedRestaurant);
-  }, [form, restaurant]);
+    form.reset(updatedShop);
+  }, [form, shop]);
 
-  const onSubmit = (formDataJson: RestaurantFormData) => {
+  const onSubmit = (formDataJson: ShopFormData) => {
     const formData = new FormData();
 
-    formData.append("restaurantName", formDataJson.restaurantName);
+    formData.append("shopName", formDataJson.shopName);
     formData.append("city", formDataJson.city);
     formData.append("country", formDataJson.country);
 
@@ -104,8 +104,8 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
       "estimatedDeliveryTime",
       formDataJson.estimatedDeliveryTime.toString()
     );
-    formDataJson.cuisines.forEach((cuisine, index) => {
-      formData.append(`cuisines[${index}]`, cuisine);
+    formDataJson.filters.forEach((filter, index) => {
+      formData.append(`filters[${index}]`, filter);
     });
     formDataJson.menuItems.forEach((menuItem, index) => {
       formData.append(`menuItems[${index}][name]`, menuItem.name);
@@ -130,7 +130,7 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
       >
         <DetailsSection />
         <Separator />
-        <CuisinesSection />
+        <FiltersSection />
         <Separator />
         <MenuSection />
         <Separator />
@@ -141,4 +141,4 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
   );
 };
 
-export default ManageRestaurantForm;
+export default ManageShopForm;

@@ -1,4 +1,4 @@
-import { Restaurant } from "@/types";
+import { Shop } from "@/types";
 import {
   Card,
   CardContent,
@@ -9,25 +9,25 @@ import {
 import { Dot } from "lucide-react";
 
 type Props = {
-  restaurant: Restaurant;
+  shop: Shop;
 };
 
-const RestaurantInfo = ({ restaurant }: Props) => {
+const ShopInfo = ({ shop }: Props) => {
   return (
     <Card className="border-sla">
       <CardHeader>
         <CardTitle className="text-3xl font-bold tracking-tight">
-          {restaurant.restaurantName}
+          {shop.shopName}
         </CardTitle>
         <CardDescription>
-          {restaurant.city}, {restaurant.country}
+          {shop.city}, {shop.country}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex">
-        {restaurant.cuisines.map((item, index) => (
+        {shop.filters.map((item, index) => (
           <span className="flex">
             <span>{item}</span>
-            {index < restaurant.cuisines.length - 1 && <Dot />}
+            {index < shop.filters.length - 1 && <Dot />}
           </span>
         ))}
       </CardContent>
@@ -35,4 +35,4 @@ const RestaurantInfo = ({ restaurant }: Props) => {
   );
 };
 
-export default RestaurantInfo;
+export default ShopInfo;
