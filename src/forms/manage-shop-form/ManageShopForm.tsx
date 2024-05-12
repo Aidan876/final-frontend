@@ -10,7 +10,8 @@ import ImageSection from "./ImageSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import { Shop } from "@/types";
-import { useEffect } from "react";
+import QRCode from "qrcode.react";
+import { useEffect, useState } from "react";
 
 const formSchema = z
   .object({
@@ -57,6 +58,7 @@ type Props = {
 };
 
 const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const form = useForm<ShopFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -122,6 +124,14 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
     onSave(formData);
   };
 
+  useEffect(() => {
+    if (shop && shop._id) {
+      const qrCodeBaseURL = "http://localhost:5173/detail/"; // Replace with your base URL
+      const qrCodeURLWithId = qrCodeBaseURL + shop._id;
+      setQrCodeUrl(qrCodeURLWithId);
+    }
+  }, [shop]);
+
   return (
     <Form {...form}>
       <form
@@ -136,6 +146,14 @@ const ManageShopForm = ({ onSave, isLoading, shop: shop }: Props) => {
         <Separator />
         <ImageSection />
         {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
+
+        <div>
+          <span className="md:block">
+            QR code will generate here! this will link to order page for users!
+            attach to clothing tag!
+          </span>
+          {qrCodeUrl && <QRCode value={qrCodeUrl} />}
+        </div>
       </form>
     </Form>
   );
